@@ -1,5 +1,11 @@
-from PySide6.QtWidgets import QMainWindow, QLabel
-from PySide6.QtCore import Qt
+from PySide6.QtWidgets import (
+    QMainWindow,
+    QWidget,
+    QHBoxLayout
+)
+
+from ui.widgets.sidebar import Sidebar
+from ui.pages.dashboard import DashboardPage
 
 
 class MainWindow(QMainWindow):
@@ -7,9 +13,16 @@ class MainWindow(QMainWindow):
         super().__init__()
 
         self.setWindowTitle("REDOPS")
-        self.resize(1200, 800)
+        self.resize(1400, 850)
 
-        label = QLabel("Welcome to REDOPS")
-        label.setAlignment(Qt.AlignCenter)
+        central = QWidget()
+        self.setCentralWidget(central)
 
-        self.setCentralWidget(label)
+        layout = QHBoxLayout(central)
+        layout.setContentsMargins(0, 0, 0, 0)
+
+        self.sidebar = Sidebar()
+        self.dashboard = DashboardPage()
+
+        layout.addWidget(self.sidebar)
+        layout.addWidget(self.dashboard)
